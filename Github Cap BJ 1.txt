@@ -1,0 +1,3340 @@
+# Get forecast data for a given city list
+get_weather_forecaset_by_cities <- function(city_names){
+    df <- data.frame()
+    for (city_name in city_names){
+        # Forecast API URL
+        forecast_url <- 'https://api.openweathermap.org/data/2.5/forecast'
+        # Create query parameters
+        forecast_query <- list(q = city_name, appid = "f7dd8081e49fb94d12be4ab2fb739e74", units="metric")
+        # Make HTTP GET call for the given city
+        response <- GET(forecast_url, query=forecast_query)
+        results <- content(response, as="parsed")
+        # Note that the 5-day forecast JSON result is a list of lists. You can print the reponse to check the results
+        #results <- json_list$list
+        print(results)        
+       
+      # Loop the json result
+        for(result in results) {
+            city <- c(city, city_name)
+            
+        }
+        
+        # Add the R Lists into a data frame
+        # assign the values
+        city <- c(city, json_result$main$city)
+        weather <- c(weather, json_result$weather[[1]]$main)
+
+visibility <- c(visibility, json_result$visibility)
+temp <- c(temp, json_result$main$temp)
+# Get min temperature 
+temp_min <- c(temp_min, json_result$main$temp_min)
+# Get max temperature 
+temp_max <- c(temp_max, json_result$main$temp_max)
+# Get pressure
+pressure <- c(pressure, json_result$main$pressure)
+# Get humidity
+humidity <- c(humidity, json_result$main$humidity)
+# Get wind speed
+wind_speed <- c(wind_speed, json_result$wind$speed)
+# Get wind direction
+wind_deg <- c(wind_deg, json_result$wind$deg)
+forecast_datetime <- c(forecast_datetime, json_result$forecast$datetime)
+season <- c(season, json_result$main$season)
+
+    # Combine all vectors as columns of a data frame   
+        weather_data_frame <- data.frame(city=city, 
+                                 weather=weather, 
+                                 visibility=visibility,
+                                 temp=temp, 
+                                 temp_min=temp_min, 
+                                 temp_max=temp_max, 
+                                 pressure=pressure, 
+                                 humidity=humidity, 
+                                 wind_speed=wind_speed, 
+                                 wind_deg=wind_deg,
+                                forecast_datetime=forecast_datetime,
+                                season=season)
+
+    }
+    
+    # Return a data frame
+    return(df)
+    
+}
+
+Error
+
+
+$cod
+[1] "200"
+
+$message
+[1] 0
+
+$cnt
+[1] 40
+
+$list
+$list[[1]]
+$list[[1]]$dt
+[1] 1662746400
+
+$list[[1]]$main
+$list[[1]]$main$temp
+[1] 19.26
+
+$list[[1]]$main$feels_like
+[1] 18.89
+
+$list[[1]]$main$temp_min
+[1] 19.26
+
+$list[[1]]$main$temp_max
+[1] 19.67
+
+$list[[1]]$main$pressure
+[1] 1018
+
+$list[[1]]$main$sea_level
+[1] 1018
+
+$list[[1]]$main$grnd_level
+[1] 1012
+
+$list[[1]]$main$humidity
+[1] 63
+
+$list[[1]]$main$temp_kf
+[1] -0.41
+
+
+$list[[1]]$weather
+$list[[1]]$weather[[1]]
+$list[[1]]$weather[[1]]$id
+[1] 800
+
+$list[[1]]$weather[[1]]$main
+[1] "Clear"
+
+$list[[1]]$weather[[1]]$description
+[1] "clear sky"
+
+$list[[1]]$weather[[1]]$icon
+[1] "01n"
+
+
+
+$list[[1]]$clouds
+$list[[1]]$clouds$all
+[1] 0
+
+
+$list[[1]]$wind
+$list[[1]]$wind$speed
+[1] 1.57
+
+$list[[1]]$wind$deg
+[1] 73
+
+$list[[1]]$wind$gust
+[1] 1.74
+
+
+$list[[1]]$visibility
+[1] 10000
+
+$list[[1]]$pop
+[1] 0
+
+$list[[1]]$sys
+$list[[1]]$sys$pod
+[1] "n"
+
+
+$list[[1]]$dt_txt
+[1] "2022-09-09 18:00:00"
+
+
+$list[[2]]
+$list[[2]]$dt
+[1] 1662757200
+
+$list[[2]]$main
+$list[[2]]$main$temp
+[1] 19
+
+$list[[2]]$main$feels_like
+[1] 18.55
+
+$list[[2]]$main$temp_min
+[1] 18.47
+
+$list[[2]]$main$temp_max
+[1] 19
+
+$list[[2]]$main$pressure
+[1] 1018
+
+$list[[2]]$main$sea_level
+[1] 1018
+
+$list[[2]]$main$grnd_level
+[1] 1012
+
+$list[[2]]$main$humidity
+[1] 61
+
+$list[[2]]$main$temp_kf
+[1] 0.53
+
+
+$list[[2]]$weather
+$list[[2]]$weather[[1]]
+$list[[2]]$weather[[1]]$id
+[1] 802
+
+$list[[2]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[2]]$weather[[1]]$description
+[1] "scattered clouds"
+
+$list[[2]]$weather[[1]]$icon
+[1] "03n"
+
+
+
+$list[[2]]$clouds
+$list[[2]]$clouds$all
+[1] 33
+
+
+$list[[2]]$wind
+$list[[2]]$wind$speed
+[1] 2.04
+
+$list[[2]]$wind$deg
+[1] 68
+
+$list[[2]]$wind$gust
+[1] 3.55
+
+
+$list[[2]]$visibility
+[1] 10000
+
+$list[[2]]$pop
+[1] 0
+
+$list[[2]]$sys
+$list[[2]]$sys$pod
+[1] "n"
+
+
+$list[[2]]$dt_txt
+[1] "2022-09-09 21:00:00"
+
+
+$list[[3]]
+$list[[3]]$dt
+[1] 1662768000
+
+$list[[3]]$main
+$list[[3]]$main$temp
+[1] 20.63
+
+$list[[3]]$main$feels_like
+[1] 20.08
+
+$list[[3]]$main$temp_min
+[1] 20.63
+
+$list[[3]]$main$temp_max
+[1] 21.31
+
+$list[[3]]$main$pressure
+[1] 1019
+
+$list[[3]]$main$sea_level
+[1] 1019
+
+$list[[3]]$main$grnd_level
+[1] 1013
+
+$list[[3]]$main$humidity
+[1] 51
+
+$list[[3]]$main$temp_kf
+[1] -0.68
+
+
+$list[[3]]$weather
+$list[[3]]$weather[[1]]
+$list[[3]]$weather[[1]]$id
+[1] 803
+
+$list[[3]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[3]]$weather[[1]]$description
+[1] "broken clouds"
+
+$list[[3]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[3]]$clouds
+$list[[3]]$clouds$all
+[1] 67
+
+
+$list[[3]]$wind
+$list[[3]]$wind$speed
+[1] 1.87
+
+$list[[3]]$wind$deg
+[1] 60
+
+$list[[3]]$wind$gust
+[1] 3.07
+
+
+$list[[3]]$visibility
+[1] 10000
+
+$list[[3]]$pop
+[1] 0
+
+$list[[3]]$sys
+$list[[3]]$sys$pod
+[1] "d"
+
+
+$list[[3]]$dt_txt
+[1] "2022-09-10 00:00:00"
+
+
+$list[[4]]
+$list[[4]]$dt
+[1] 1662778800
+
+$list[[4]]$main
+$list[[4]]$main$temp
+[1] 25.85
+
+$list[[4]]$main$feels_like
+[1] 25.43
+
+$list[[4]]$main$temp_min
+[1] 25.85
+
+$list[[4]]$main$temp_max
+[1] 25.85
+
+$list[[4]]$main$pressure
+[1] 1018
+
+$list[[4]]$main$sea_level
+[1] 1018
+
+$list[[4]]$main$grnd_level
+[1] 1012
+
+$list[[4]]$main$humidity
+[1] 36
+
+$list[[4]]$main$temp_kf
+[1] 0
+
+
+$list[[4]]$weather
+$list[[4]]$weather[[1]]
+$list[[4]]$weather[[1]]$id
+[1] 804
+
+$list[[4]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[4]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[4]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[4]]$clouds
+$list[[4]]$clouds$all
+[1] 100
+
+
+$list[[4]]$wind
+$list[[4]]$wind$speed
+[1] 3.04
+
+$list[[4]]$wind$deg
+[1] 97
+
+$list[[4]]$wind$gust
+[1] 4.95
+
+
+$list[[4]]$visibility
+[1] 10000
+
+$list[[4]]$pop
+[1] 0
+
+$list[[4]]$sys
+$list[[4]]$sys$pod
+[1] "d"
+
+
+$list[[4]]$dt_txt
+[1] "2022-09-10 03:00:00"
+
+
+$list[[5]]
+$list[[5]]$dt
+[1] 1662789600
+
+$list[[5]]$main
+$list[[5]]$main$temp
+[1] 28.19
+
+$list[[5]]$main$feels_like
+[1] 27.57
+
+$list[[5]]$main$temp_min
+[1] 28.19
+
+$list[[5]]$main$temp_max
+[1] 28.19
+
+$list[[5]]$main$pressure
+[1] 1017
+
+$list[[5]]$main$sea_level
+[1] 1017
+
+$list[[5]]$main$grnd_level
+[1] 1010
+
+$list[[5]]$main$humidity
+[1] 36
+
+$list[[5]]$main$temp_kf
+[1] 0
+
+
+$list[[5]]$weather
+$list[[5]]$weather[[1]]
+$list[[5]]$weather[[1]]$id
+[1] 804
+
+$list[[5]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[5]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[5]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[5]]$clouds
+$list[[5]]$clouds$all
+[1] 94
+
+
+$list[[5]]$wind
+$list[[5]]$wind$speed
+[1] 2.89
+
+$list[[5]]$wind$deg
+[1] 92
+
+$list[[5]]$wind$gust
+[1] 4.76
+
+
+$list[[5]]$visibility
+[1] 10000
+
+$list[[5]]$pop
+[1] 0
+
+$list[[5]]$sys
+$list[[5]]$sys$pod
+[1] "d"
+
+
+$list[[5]]$dt_txt
+[1] "2022-09-10 06:00:00"
+
+
+$list[[6]]
+$list[[6]]$dt
+[1] 1662800400
+
+$list[[6]]$main
+$list[[6]]$main$temp
+[1] 26.06
+
+$list[[6]]$main$feels_like
+[1] 26.06
+
+$list[[6]]$main$temp_min
+[1] 26.06
+
+$list[[6]]$main$temp_max
+[1] 26.06
+
+$list[[6]]$main$pressure
+[1] 1016
+
+$list[[6]]$main$sea_level
+[1] 1016
+
+$list[[6]]$main$grnd_level
+[1] 1010
+
+$list[[6]]$main$humidity
+[1] 47
+
+$list[[6]]$main$temp_kf
+[1] 0
+
+
+$list[[6]]$weather
+$list[[6]]$weather[[1]]
+$list[[6]]$weather[[1]]$id
+[1] 804
+
+$list[[6]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[6]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[6]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[6]]$clouds
+$list[[6]]$clouds$all
+[1] 99
+
+
+$list[[6]]$wind
+$list[[6]]$wind$speed
+[1] 0.92
+
+$list[[6]]$wind$deg
+[1] 128
+
+$list[[6]]$wind$gust
+[1] 2.27
+
+
+$list[[6]]$visibility
+[1] 10000
+
+$list[[6]]$pop
+[1] 0
+
+$list[[6]]$sys
+$list[[6]]$sys$pod
+[1] "d"
+
+
+$list[[6]]$dt_txt
+[1] "2022-09-10 09:00:00"
+
+
+$list[[7]]
+$list[[7]]$dt
+[1] 1662811200
+
+$list[[7]]$main
+$list[[7]]$main$temp
+[1] 23.46
+
+$list[[7]]$main$feels_like
+[1] 23.35
+
+$list[[7]]$main$temp_min
+[1] 23.46
+
+$list[[7]]$main$temp_max
+[1] 23.46
+
+$list[[7]]$main$pressure
+[1] 1017
+
+$list[[7]]$main$sea_level
+[1] 1017
+
+$list[[7]]$main$grnd_level
+[1] 1010
+
+$list[[7]]$main$humidity
+[1] 57
+
+$list[[7]]$main$temp_kf
+[1] 0
+
+
+$list[[7]]$weather
+$list[[7]]$weather[[1]]
+$list[[7]]$weather[[1]]$id
+[1] 804
+
+$list[[7]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[7]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[7]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[7]]$clouds
+$list[[7]]$clouds$all
+[1] 100
+
+
+$list[[7]]$wind
+$list[[7]]$wind$speed
+[1] 1.87
+
+$list[[7]]$wind$deg
+[1] 73
+
+$list[[7]]$wind$gust
+[1] 5.36
+
+
+$list[[7]]$visibility
+[1] 10000
+
+$list[[7]]$pop
+[1] 0
+
+$list[[7]]$sys
+$list[[7]]$sys$pod
+[1] "n"
+
+
+$list[[7]]$dt_txt
+[1] "2022-09-10 12:00:00"
+
+
+$list[[8]]
+$list[[8]]$dt
+[1] 1662822000
+
+$list[[8]]$main
+$list[[8]]$main$temp
+[1] 22.35
+
+$list[[8]]$main$feels_like
+[1] 22.29
+
+$list[[8]]$main$temp_min
+[1] 22.35
+
+$list[[8]]$main$temp_max
+[1] 22.35
+
+$list[[8]]$main$pressure
+[1] 1017
+
+$list[[8]]$main$sea_level
+[1] 1017
+
+$list[[8]]$main$grnd_level
+[1] 1010
+
+$list[[8]]$main$humidity
+[1] 63
+
+$list[[8]]$main$temp_kf
+[1] 0
+
+
+$list[[8]]$weather
+$list[[8]]$weather[[1]]
+$list[[8]]$weather[[1]]$id
+[1] 804
+
+$list[[8]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[8]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[8]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[8]]$clouds
+$list[[8]]$clouds$all
+[1] 100
+
+
+$list[[8]]$wind
+$list[[8]]$wind$speed
+[1] 1.3
+
+$list[[8]]$wind$deg
+[1] 78
+
+$list[[8]]$wind$gust
+[1] 2.07
+
+
+$list[[8]]$visibility
+[1] 10000
+
+$list[[8]]$pop
+[1] 0
+
+$list[[8]]$sys
+$list[[8]]$sys$pod
+[1] "n"
+
+
+$list[[8]]$dt_txt
+[1] "2022-09-10 15:00:00"
+
+
+$list[[9]]
+$list[[9]]$dt
+[1] 1662832800
+
+$list[[9]]$main
+$list[[9]]$main$temp
+[1] 21.13
+
+$list[[9]]$main$feels_like
+[1] 21.1
+
+$list[[9]]$main$temp_min
+[1] 21.13
+
+$list[[9]]$main$temp_max
+[1] 21.13
+
+$list[[9]]$main$pressure
+[1] 1016
+
+$list[[9]]$main$sea_level
+[1] 1016
+
+$list[[9]]$main$grnd_level
+[1] 1010
+
+$list[[9]]$main$humidity
+[1] 69
+
+$list[[9]]$main$temp_kf
+[1] 0
+
+
+$list[[9]]$weather
+$list[[9]]$weather[[1]]
+$list[[9]]$weather[[1]]$id
+[1] 804
+
+$list[[9]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[9]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[9]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[9]]$clouds
+$list[[9]]$clouds$all
+[1] 100
+
+
+$list[[9]]$wind
+$list[[9]]$wind$speed
+[1] 1.16
+
+$list[[9]]$wind$deg
+[1] 75
+
+$list[[9]]$wind$gust
+[1] 1.76
+
+
+$list[[9]]$visibility
+[1] 10000
+
+$list[[9]]$pop
+[1] 0
+
+$list[[9]]$sys
+$list[[9]]$sys$pod
+[1] "n"
+
+
+$list[[9]]$dt_txt
+[1] "2022-09-10 18:00:00"
+
+
+$list[[10]]
+$list[[10]]$dt
+[1] 1662843600
+
+$list[[10]]$main
+$list[[10]]$main$temp
+[1] 20.32
+
+$list[[10]]$main$feels_like
+[1] 20.31
+
+$list[[10]]$main$temp_min
+[1] 20.32
+
+$list[[10]]$main$temp_max
+[1] 20.32
+
+$list[[10]]$main$pressure
+[1] 1016
+
+$list[[10]]$main$sea_level
+[1] 1016
+
+$list[[10]]$main$grnd_level
+[1] 1010
+
+$list[[10]]$main$humidity
+[1] 73
+
+$list[[10]]$main$temp_kf
+[1] 0
+
+
+$list[[10]]$weather
+$list[[10]]$weather[[1]]
+$list[[10]]$weather[[1]]$id
+[1] 804
+
+$list[[10]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[10]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[10]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[10]]$clouds
+$list[[10]]$clouds$all
+[1] 100
+
+
+$list[[10]]$wind
+$list[[10]]$wind$speed
+[1] 1.83
+
+$list[[10]]$wind$deg
+[1] 70
+
+$list[[10]]$wind$gust
+[1] 3.08
+
+
+$list[[10]]$visibility
+[1] 10000
+
+$list[[10]]$pop
+[1] 0
+
+$list[[10]]$sys
+$list[[10]]$sys$pod
+[1] "n"
+
+
+$list[[10]]$dt_txt
+[1] "2022-09-10 21:00:00"
+
+
+$list[[11]]
+$list[[11]]$dt
+[1] 1662854400
+
+$list[[11]]$main
+$list[[11]]$main$temp
+[1] 21.97
+
+$list[[11]]$main$feels_like
+[1] 21.89
+
+$list[[11]]$main$temp_min
+[1] 21.97
+
+$list[[11]]$main$temp_max
+[1] 21.97
+
+$list[[11]]$main$pressure
+[1] 1017
+
+$list[[11]]$main$sea_level
+[1] 1017
+
+$list[[11]]$main$grnd_level
+[1] 1010
+
+$list[[11]]$main$humidity
+[1] 64
+
+$list[[11]]$main$temp_kf
+[1] 0
+
+
+$list[[11]]$weather
+$list[[11]]$weather[[1]]
+$list[[11]]$weather[[1]]$id
+[1] 804
+
+$list[[11]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[11]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[11]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[11]]$clouds
+$list[[11]]$clouds$all
+[1] 100
+
+
+$list[[11]]$wind
+$list[[11]]$wind$speed
+[1] 1.82
+
+$list[[11]]$wind$deg
+[1] 78
+
+$list[[11]]$wind$gust
+[1] 2.86
+
+
+$list[[11]]$visibility
+[1] 10000
+
+$list[[11]]$pop
+[1] 0
+
+$list[[11]]$sys
+$list[[11]]$sys$pod
+[1] "d"
+
+
+$list[[11]]$dt_txt
+[1] "2022-09-11 00:00:00"
+
+
+$list[[12]]
+$list[[12]]$dt
+[1] 1662865200
+
+$list[[12]]$main
+$list[[12]]$main$temp
+[1] 24.37
+
+$list[[12]]$main$feels_like
+[1] 24.3
+
+$list[[12]]$main$temp_min
+[1] 24.37
+
+$list[[12]]$main$temp_max
+[1] 24.37
+
+$list[[12]]$main$pressure
+[1] 1016
+
+$list[[12]]$main$sea_level
+[1] 1016
+
+$list[[12]]$main$grnd_level
+[1] 1009
+
+$list[[12]]$main$humidity
+[1] 55
+
+$list[[12]]$main$temp_kf
+[1] 0
+
+
+$list[[12]]$weather
+$list[[12]]$weather[[1]]
+$list[[12]]$weather[[1]]$id
+[1] 804
+
+$list[[12]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[12]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[12]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[12]]$clouds
+$list[[12]]$clouds$all
+[1] 100
+
+
+$list[[12]]$wind
+$list[[12]]$wind$speed
+[1] 1.01
+
+$list[[12]]$wind$deg
+[1] 95
+
+$list[[12]]$wind$gust
+[1] 1.9
+
+
+$list[[12]]$visibility
+[1] 10000
+
+$list[[12]]$pop
+[1] 0
+
+$list[[12]]$sys
+$list[[12]]$sys$pod
+[1] "d"
+
+
+$list[[12]]$dt_txt
+[1] "2022-09-11 03:00:00"
+
+
+$list[[13]]
+$list[[13]]$dt
+[1] 1662876000
+
+$list[[13]]$main
+$list[[13]]$main$temp
+[1] 24.77
+
+$list[[13]]$main$feels_like
+[1] 24.74
+
+$list[[13]]$main$temp_min
+[1] 24.77
+
+$list[[13]]$main$temp_max
+[1] 24.77
+
+$list[[13]]$main$pressure
+[1] 1014
+
+$list[[13]]$main$sea_level
+[1] 1014
+
+$list[[13]]$main$grnd_level
+[1] 1008
+
+$list[[13]]$main$humidity
+[1] 55
+
+$list[[13]]$main$temp_kf
+[1] 0
+
+
+$list[[13]]$weather
+$list[[13]]$weather[[1]]
+$list[[13]]$weather[[1]]$id
+[1] 804
+
+$list[[13]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[13]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[13]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[13]]$clouds
+$list[[13]]$clouds$all
+[1] 100
+
+
+$list[[13]]$wind
+$list[[13]]$wind$speed
+[1] 1.37
+
+$list[[13]]$wind$deg
+[1] 77
+
+$list[[13]]$wind$gust
+[1] 1.78
+
+
+$list[[13]]$visibility
+[1] 10000
+
+$list[[13]]$pop
+[1] 0
+
+$list[[13]]$sys
+$list[[13]]$sys$pod
+[1] "d"
+
+
+$list[[13]]$dt_txt
+[1] "2022-09-11 06:00:00"
+
+
+$list[[14]]
+$list[[14]]$dt
+[1] 1662886800
+
+$list[[14]]$main
+$list[[14]]$main$temp
+[1] 23.95
+
+$list[[14]]$main$feels_like
+[1] 24.05
+
+$list[[14]]$main$temp_min
+[1] 23.95
+
+$list[[14]]$main$temp_max
+[1] 23.95
+
+$list[[14]]$main$pressure
+[1] 1014
+
+$list[[14]]$main$sea_level
+[1] 1014
+
+$list[[14]]$main$grnd_level
+[1] 1008
+
+$list[[14]]$main$humidity
+[1] 63
+
+$list[[14]]$main$temp_kf
+[1] 0
+
+
+$list[[14]]$weather
+$list[[14]]$weather[[1]]
+$list[[14]]$weather[[1]]$id
+[1] 804
+
+$list[[14]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[14]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[14]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[14]]$clouds
+$list[[14]]$clouds$all
+[1] 100
+
+
+$list[[14]]$wind
+$list[[14]]$wind$speed
+[1] 0.93
+
+$list[[14]]$wind$deg
+[1] 65
+
+$list[[14]]$wind$gust
+[1] 1.45
+
+
+$list[[14]]$visibility
+[1] 10000
+
+$list[[14]]$pop
+[1] 0
+
+$list[[14]]$sys
+$list[[14]]$sys$pod
+[1] "d"
+
+
+$list[[14]]$dt_txt
+[1] "2022-09-11 09:00:00"
+
+
+$list[[15]]
+$list[[15]]$dt
+[1] 1662897600
+
+$list[[15]]$main
+$list[[15]]$main$temp
+[1] 22.77
+
+$list[[15]]$main$feels_like
+[1] 22.9
+
+$list[[15]]$main$temp_min
+[1] 22.77
+
+$list[[15]]$main$temp_max
+[1] 22.77
+
+$list[[15]]$main$pressure
+[1] 1015
+
+$list[[15]]$main$sea_level
+[1] 1015
+
+$list[[15]]$main$grnd_level
+[1] 1008
+
+$list[[15]]$main$humidity
+[1] 69
+
+$list[[15]]$main$temp_kf
+[1] 0
+
+
+$list[[15]]$weather
+$list[[15]]$weather[[1]]
+$list[[15]]$weather[[1]]$id
+[1] 804
+
+$list[[15]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[15]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[15]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[15]]$clouds
+$list[[15]]$clouds$all
+[1] 100
+
+
+$list[[15]]$wind
+$list[[15]]$wind$speed
+[1] 0.64
+
+$list[[15]]$wind$deg
+[1] 29
+
+$list[[15]]$wind$gust
+[1] 0.74
+
+
+$list[[15]]$visibility
+[1] 10000
+
+$list[[15]]$pop
+[1] 0.03
+
+$list[[15]]$sys
+$list[[15]]$sys$pod
+[1] "n"
+
+
+$list[[15]]$dt_txt
+[1] "2022-09-11 12:00:00"
+
+
+$list[[16]]
+$list[[16]]$dt
+[1] 1662908400
+
+$list[[16]]$main
+$list[[16]]$main$temp
+[1] 21.31
+
+$list[[16]]$main$feels_like
+[1] 21.59
+
+$list[[16]]$main$temp_min
+[1] 21.31
+
+$list[[16]]$main$temp_max
+[1] 21.31
+
+$list[[16]]$main$pressure
+[1] 1015
+
+$list[[16]]$main$sea_level
+[1] 1015
+
+$list[[16]]$main$grnd_level
+[1] 1008
+
+$list[[16]]$main$humidity
+[1] 80
+
+$list[[16]]$main$temp_kf
+[1] 0
+
+
+$list[[16]]$weather
+$list[[16]]$weather[[1]]
+$list[[16]]$weather[[1]]$id
+[1] 500
+
+$list[[16]]$weather[[1]]$main
+[1] "Rain"
+
+$list[[16]]$weather[[1]]$description
+[1] "light rain"
+
+$list[[16]]$weather[[1]]$icon
+[1] "10n"
+
+
+
+$list[[16]]$clouds
+$list[[16]]$clouds$all
+[1] 97
+
+
+$list[[16]]$wind
+$list[[16]]$wind$speed
+[1] 0.58
+
+$list[[16]]$wind$deg
+[1] 66
+
+$list[[16]]$wind$gust
+[1] 0.65
+
+
+$list[[16]]$visibility
+[1] 10000
+
+$list[[16]]$pop
+[1] 0.38
+
+$list[[16]]$rain
+$list[[16]]$rain$`3h`
+[1] 0.61
+
+
+$list[[16]]$sys
+$list[[16]]$sys$pod
+[1] "n"
+
+
+$list[[16]]$dt_txt
+[1] "2022-09-11 15:00:00"
+
+
+$list[[17]]
+$list[[17]]$dt
+[1] 1662919200
+
+$list[[17]]$main
+$list[[17]]$main$temp
+[1] 20.41
+
+$list[[17]]$main$feels_like
+[1] 20.75
+
+$list[[17]]$main$temp_min
+[1] 20.41
+
+$list[[17]]$main$temp_max
+[1] 20.41
+
+$list[[17]]$main$pressure
+[1] 1014
+
+$list[[17]]$main$sea_level
+[1] 1014
+
+$list[[17]]$main$grnd_level
+[1] 1008
+
+$list[[17]]$main$humidity
+[1] 86
+
+$list[[17]]$main$temp_kf
+[1] 0
+
+
+$list[[17]]$weather
+$list[[17]]$weather[[1]]
+$list[[17]]$weather[[1]]$id
+[1] 500
+
+$list[[17]]$weather[[1]]$main
+[1] "Rain"
+
+$list[[17]]$weather[[1]]$description
+[1] "light rain"
+
+$list[[17]]$weather[[1]]$icon
+[1] "10n"
+
+
+
+$list[[17]]$clouds
+$list[[17]]$clouds$all
+[1] 82
+
+
+$list[[17]]$wind
+$list[[17]]$wind$speed
+[1] 0.99
+
+$list[[17]]$wind$deg
+[1] 71
+
+$list[[17]]$wind$gust
+[1] 0.95
+
+
+$list[[17]]$visibility
+[1] 10000
+
+$list[[17]]$pop
+[1] 0.27
+
+$list[[17]]$rain
+$list[[17]]$rain$`3h`
+[1] 0.31
+
+
+$list[[17]]$sys
+$list[[17]]$sys$pod
+[1] "n"
+
+
+$list[[17]]$dt_txt
+[1] "2022-09-11 18:00:00"
+
+
+$list[[18]]
+$list[[18]]$dt
+[1] 1662930000
+
+$list[[18]]$main
+$list[[18]]$main$temp
+[1] 19.84
+
+$list[[18]]$main$feels_like
+[1] 20.18
+
+$list[[18]]$main$temp_min
+[1] 19.84
+
+$list[[18]]$main$temp_max
+[1] 19.84
+
+$list[[18]]$main$pressure
+[1] 1014
+
+$list[[18]]$main$sea_level
+[1] 1014
+
+$list[[18]]$main$grnd_level
+[1] 1008
+
+$list[[18]]$main$humidity
+[1] 88
+
+$list[[18]]$main$temp_kf
+[1] 0
+
+
+$list[[18]]$weather
+$list[[18]]$weather[[1]]
+$list[[18]]$weather[[1]]$id
+[1] 803
+
+$list[[18]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[18]]$weather[[1]]$description
+[1] "broken clouds"
+
+$list[[18]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[18]]$clouds
+$list[[18]]$clouds$all
+[1] 67
+
+
+$list[[18]]$wind
+$list[[18]]$wind$speed
+[1] 0.97
+
+$list[[18]]$wind$deg
+[1] 83
+
+$list[[18]]$wind$gust
+[1] 0.99
+
+
+$list[[18]]$visibility
+[1] 10000
+
+$list[[18]]$pop
+[1] 0
+
+$list[[18]]$sys
+$list[[18]]$sys$pod
+[1] "n"
+
+
+$list[[18]]$dt_txt
+[1] "2022-09-11 21:00:00"
+
+
+$list[[19]]
+$list[[19]]$dt
+[1] 1662940800
+
+$list[[19]]$main
+$list[[19]]$main$temp
+[1] 22.75
+
+$list[[19]]$main$feels_like
+[1] 23.04
+
+$list[[19]]$main$temp_min
+[1] 22.75
+
+$list[[19]]$main$temp_max
+[1] 22.75
+
+$list[[19]]$main$pressure
+[1] 1015
+
+$list[[19]]$main$sea_level
+[1] 1015
+
+$list[[19]]$main$grnd_level
+[1] 1008
+
+$list[[19]]$main$humidity
+[1] 75
+
+$list[[19]]$main$temp_kf
+[1] 0
+
+
+$list[[19]]$weather
+$list[[19]]$weather[[1]]
+$list[[19]]$weather[[1]]$id
+[1] 803
+
+$list[[19]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[19]]$weather[[1]]$description
+[1] "broken clouds"
+
+$list[[19]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[19]]$clouds
+$list[[19]]$clouds$all
+[1] 83
+
+
+$list[[19]]$wind
+$list[[19]]$wind$speed
+[1] 0.82
+
+$list[[19]]$wind$deg
+[1] 97
+
+$list[[19]]$wind$gust
+[1] 1.02
+
+
+$list[[19]]$visibility
+[1] 10000
+
+$list[[19]]$pop
+[1] 0
+
+$list[[19]]$sys
+$list[[19]]$sys$pod
+[1] "d"
+
+
+$list[[19]]$dt_txt
+[1] "2022-09-12 00:00:00"
+
+
+$list[[20]]
+$list[[20]]$dt
+[1] 1662951600
+
+$list[[20]]$main
+$list[[20]]$main$temp
+[1] 26.32
+
+$list[[20]]$main$feels_like
+[1] 26.32
+
+$list[[20]]$main$temp_min
+[1] 26.32
+
+$list[[20]]$main$temp_max
+[1] 26.32
+
+$list[[20]]$main$pressure
+[1] 1014
+
+$list[[20]]$main$sea_level
+[1] 1014
+
+$list[[20]]$main$grnd_level
+[1] 1008
+
+$list[[20]]$main$humidity
+[1] 61
+
+$list[[20]]$main$temp_kf
+[1] 0
+
+
+$list[[20]]$weather
+$list[[20]]$weather[[1]]
+$list[[20]]$weather[[1]]$id
+[1] 804
+
+$list[[20]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[20]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[20]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[20]]$clouds
+$list[[20]]$clouds$all
+[1] 100
+
+
+$list[[20]]$wind
+$list[[20]]$wind$speed
+[1] 0.23
+
+$list[[20]]$wind$deg
+[1] 129
+
+$list[[20]]$wind$gust
+[1] 0.59
+
+
+$list[[20]]$visibility
+[1] 10000
+
+$list[[20]]$pop
+[1] 0
+
+$list[[20]]$sys
+$list[[20]]$sys$pod
+[1] "d"
+
+
+$list[[20]]$dt_txt
+[1] "2022-09-12 03:00:00"
+
+
+$list[[21]]
+$list[[21]]$dt
+[1] 1662962400
+
+$list[[21]]$main
+$list[[21]]$main$temp
+[1] 27.5
+
+$list[[21]]$main$feels_like
+[1] 28.3
+
+$list[[21]]$main$temp_min
+[1] 27.5
+
+$list[[21]]$main$temp_max
+[1] 27.5
+
+$list[[21]]$main$pressure
+[1] 1013
+
+$list[[21]]$main$sea_level
+[1] 1013
+
+$list[[21]]$main$grnd_level
+[1] 1007
+
+$list[[21]]$main$humidity
+[1] 55
+
+$list[[21]]$main$temp_kf
+[1] 0
+
+
+$list[[21]]$weather
+$list[[21]]$weather[[1]]
+$list[[21]]$weather[[1]]$id
+[1] 804
+
+$list[[21]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[21]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[21]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[21]]$clouds
+$list[[21]]$clouds$all
+[1] 100
+
+
+$list[[21]]$wind
+$list[[21]]$wind$speed
+[1] 0.78
+
+$list[[21]]$wind$deg
+[1] 198
+
+$list[[21]]$wind$gust
+[1] 1.25
+
+
+$list[[21]]$visibility
+[1] 10000
+
+$list[[21]]$pop
+[1] 0
+
+$list[[21]]$sys
+$list[[21]]$sys$pod
+[1] "d"
+
+
+$list[[21]]$dt_txt
+[1] "2022-09-12 06:00:00"
+
+
+$list[[22]]
+$list[[22]]$dt
+[1] 1662973200
+
+$list[[22]]$main
+$list[[22]]$main$temp
+[1] 26.05
+
+$list[[22]]$main$feels_like
+[1] 26.05
+
+$list[[22]]$main$temp_min
+[1] 26.05
+
+$list[[22]]$main$temp_max
+[1] 26.05
+
+$list[[22]]$main$pressure
+[1] 1014
+
+$list[[22]]$main$sea_level
+[1] 1014
+
+$list[[22]]$main$grnd_level
+[1] 1007
+
+$list[[22]]$main$humidity
+[1] 63
+
+$list[[22]]$main$temp_kf
+[1] 0
+
+
+$list[[22]]$weather
+$list[[22]]$weather[[1]]
+$list[[22]]$weather[[1]]$id
+[1] 804
+
+$list[[22]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[22]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[22]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[22]]$clouds
+$list[[22]]$clouds$all
+[1] 100
+
+
+$list[[22]]$wind
+$list[[22]]$wind$speed
+[1] 1.1
+
+$list[[22]]$wind$deg
+[1] 272
+
+$list[[22]]$wind$gust
+[1] 1.33
+
+
+$list[[22]]$visibility
+[1] 10000
+
+$list[[22]]$pop
+[1] 0.16
+
+$list[[22]]$sys
+$list[[22]]$sys$pod
+[1] "d"
+
+
+$list[[22]]$dt_txt
+[1] "2022-09-12 09:00:00"
+
+
+$list[[23]]
+$list[[23]]$dt
+[1] 1662984000
+
+$list[[23]]$main
+$list[[23]]$main$temp
+[1] 24.14
+
+$list[[23]]$main$feels_like
+[1] 24.46
+
+$list[[23]]$main$temp_min
+[1] 24.14
+
+$list[[23]]$main$temp_max
+[1] 24.14
+
+$list[[23]]$main$pressure
+[1] 1015
+
+$list[[23]]$main$sea_level
+[1] 1015
+
+$list[[23]]$main$grnd_level
+[1] 1008
+
+$list[[23]]$main$humidity
+[1] 71
+
+$list[[23]]$main$temp_kf
+[1] 0
+
+
+$list[[23]]$weather
+$list[[23]]$weather[[1]]
+$list[[23]]$weather[[1]]$id
+[1] 804
+
+$list[[23]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[23]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[23]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[23]]$clouds
+$list[[23]]$clouds$all
+[1] 100
+
+
+$list[[23]]$wind
+$list[[23]]$wind$speed
+[1] 0.79
+
+$list[[23]]$wind$deg
+[1] 308
+
+$list[[23]]$wind$gust
+[1] 0.97
+
+
+$list[[23]]$visibility
+[1] 10000
+
+$list[[23]]$pop
+[1] 0.17
+
+$list[[23]]$sys
+$list[[23]]$sys$pod
+[1] "n"
+
+
+$list[[23]]$dt_txt
+[1] "2022-09-12 12:00:00"
+
+
+$list[[24]]
+$list[[24]]$dt
+[1] 1662994800
+
+$list[[24]]$main
+$list[[24]]$main$temp
+[1] 23.28
+
+$list[[24]]$main$feels_like
+[1] 23.62
+
+$list[[24]]$main$temp_min
+[1] 23.28
+
+$list[[24]]$main$temp_max
+[1] 23.28
+
+$list[[24]]$main$pressure
+[1] 1015
+
+$list[[24]]$main$sea_level
+[1] 1015
+
+$list[[24]]$main$grnd_level
+[1] 1009
+
+$list[[24]]$main$humidity
+[1] 75
+
+$list[[24]]$main$temp_kf
+[1] 0
+
+
+$list[[24]]$weather
+$list[[24]]$weather[[1]]
+$list[[24]]$weather[[1]]$id
+[1] 804
+
+$list[[24]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[24]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[24]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[24]]$clouds
+$list[[24]]$clouds$all
+[1] 100
+
+
+$list[[24]]$wind
+$list[[24]]$wind$speed
+[1] 0.37
+
+$list[[24]]$wind$deg
+[1] 331
+
+$list[[24]]$wind$gust
+[1] 0.49
+
+
+$list[[24]]$visibility
+[1] 10000
+
+$list[[24]]$pop
+[1] 0
+
+$list[[24]]$sys
+$list[[24]]$sys$pod
+[1] "n"
+
+
+$list[[24]]$dt_txt
+[1] "2022-09-12 15:00:00"
+
+
+$list[[25]]
+$list[[25]]$dt
+[1] 1663005600
+
+$list[[25]]$main
+$list[[25]]$main$temp
+[1] 22.53
+
+$list[[25]]$main$feels_like
+[1] 22.88
+
+$list[[25]]$main$temp_min
+[1] 22.53
+
+$list[[25]]$main$temp_max
+[1] 22.53
+
+$list[[25]]$main$pressure
+[1] 1015
+
+$list[[25]]$main$sea_level
+[1] 1015
+
+$list[[25]]$main$grnd_level
+[1] 1008
+
+$list[[25]]$main$humidity
+[1] 78
+
+$list[[25]]$main$temp_kf
+[1] 0
+
+
+$list[[25]]$weather
+$list[[25]]$weather[[1]]
+$list[[25]]$weather[[1]]$id
+[1] 804
+
+$list[[25]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[25]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[25]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[25]]$clouds
+$list[[25]]$clouds$all
+[1] 100
+
+
+$list[[25]]$wind
+$list[[25]]$wind$speed
+[1] 0.84
+
+$list[[25]]$wind$deg
+[1] 43
+
+$list[[25]]$wind$gust
+[1] 0.99
+
+
+$list[[25]]$visibility
+[1] 10000
+
+$list[[25]]$pop
+[1] 0
+
+$list[[25]]$sys
+$list[[25]]$sys$pod
+[1] "n"
+
+
+$list[[25]]$dt_txt
+[1] "2022-09-12 18:00:00"
+
+
+$list[[26]]
+$list[[26]]$dt
+[1] 1663016400
+
+$list[[26]]$main
+$list[[26]]$main$temp
+[1] 21.89
+
+$list[[26]]$main$feels_like
+[1] 22.28
+
+$list[[26]]$main$temp_min
+[1] 21.89
+
+$list[[26]]$main$temp_max
+[1] 21.89
+
+$list[[26]]$main$pressure
+[1] 1015
+
+$list[[26]]$main$sea_level
+[1] 1015
+
+$list[[26]]$main$grnd_level
+[1] 1009
+
+$list[[26]]$main$humidity
+[1] 82
+
+$list[[26]]$main$temp_kf
+[1] 0
+
+
+$list[[26]]$weather
+$list[[26]]$weather[[1]]
+$list[[26]]$weather[[1]]$id
+[1] 804
+
+$list[[26]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[26]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[26]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[26]]$clouds
+$list[[26]]$clouds$all
+[1] 100
+
+
+$list[[26]]$wind
+$list[[26]]$wind$speed
+[1] 1.21
+
+$list[[26]]$wind$deg
+[1] 19
+
+$list[[26]]$wind$gust
+[1] 1.52
+
+
+$list[[26]]$visibility
+[1] 10000
+
+$list[[26]]$pop
+[1] 0
+
+$list[[26]]$sys
+$list[[26]]$sys$pod
+[1] "n"
+
+
+$list[[26]]$dt_txt
+[1] "2022-09-12 21:00:00"
+
+
+$list[[27]]
+$list[[27]]$dt
+[1] 1663027200
+
+$list[[27]]$main
+$list[[27]]$main$temp
+[1] 24.3
+
+$list[[27]]$main$feels_like
+[1] 24.59
+
+$list[[27]]$main$temp_min
+[1] 24.3
+
+$list[[27]]$main$temp_max
+[1] 24.3
+
+$list[[27]]$main$pressure
+[1] 1016
+
+$list[[27]]$main$sea_level
+[1] 1016
+
+$list[[27]]$main$grnd_level
+[1] 1009
+
+$list[[27]]$main$humidity
+[1] 69
+
+$list[[27]]$main$temp_kf
+[1] 0
+
+
+$list[[27]]$weather
+$list[[27]]$weather[[1]]
+$list[[27]]$weather[[1]]$id
+[1] 804
+
+$list[[27]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[27]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[27]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[27]]$clouds
+$list[[27]]$clouds$all
+[1] 100
+
+
+$list[[27]]$wind
+$list[[27]]$wind$speed
+[1] 1.33
+
+$list[[27]]$wind$deg
+[1] 32
+
+$list[[27]]$wind$gust
+[1] 2.02
+
+
+$list[[27]]$visibility
+[1] 10000
+
+$list[[27]]$pop
+[1] 0
+
+$list[[27]]$sys
+$list[[27]]$sys$pod
+[1] "d"
+
+
+$list[[27]]$dt_txt
+[1] "2022-09-13 00:00:00"
+
+
+$list[[28]]
+$list[[28]]$dt
+[1] 1663038000
+
+$list[[28]]$main
+$list[[28]]$main$temp
+[1] 26.61
+
+$list[[28]]$main$feels_like
+[1] 26.61
+
+$list[[28]]$main$temp_min
+[1] 26.61
+
+$list[[28]]$main$temp_max
+[1] 26.61
+
+$list[[28]]$main$pressure
+[1] 1016
+
+$list[[28]]$main$sea_level
+[1] 1016
+
+$list[[28]]$main$grnd_level
+[1] 1009
+
+$list[[28]]$main$humidity
+[1] 60
+
+$list[[28]]$main$temp_kf
+[1] 0
+
+
+$list[[28]]$weather
+$list[[28]]$weather[[1]]
+$list[[28]]$weather[[1]]$id
+[1] 804
+
+$list[[28]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[28]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[28]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[28]]$clouds
+$list[[28]]$clouds$all
+[1] 100
+
+
+$list[[28]]$wind
+$list[[28]]$wind$speed
+[1] 1.28
+
+$list[[28]]$wind$deg
+[1] 95
+
+$list[[28]]$wind$gust
+[1] 2.22
+
+
+$list[[28]]$visibility
+[1] 10000
+
+$list[[28]]$pop
+[1] 0
+
+$list[[28]]$sys
+$list[[28]]$sys$pod
+[1] "d"
+
+
+$list[[28]]$dt_txt
+[1] "2022-09-13 03:00:00"
+
+
+$list[[29]]
+$list[[29]]$dt
+[1] 1663048800
+
+$list[[29]]$main
+$list[[29]]$main$temp
+[1] 28.77
+
+$list[[29]]$main$feels_like
+[1] 29.48
+
+$list[[29]]$main$temp_min
+[1] 28.77
+
+$list[[29]]$main$temp_max
+[1] 28.77
+
+$list[[29]]$main$pressure
+[1] 1015
+
+$list[[29]]$main$sea_level
+[1] 1015
+
+$list[[29]]$main$grnd_level
+[1] 1009
+
+$list[[29]]$main$humidity
+[1] 51
+
+$list[[29]]$main$temp_kf
+[1] 0
+
+
+$list[[29]]$weather
+$list[[29]]$weather[[1]]
+$list[[29]]$weather[[1]]$id
+[1] 804
+
+$list[[29]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[29]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[29]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[29]]$clouds
+$list[[29]]$clouds$all
+[1] 100
+
+
+$list[[29]]$wind
+$list[[29]]$wind$speed
+[1] 2.03
+
+$list[[29]]$wind$deg
+[1] 125
+
+$list[[29]]$wind$gust
+[1] 2.67
+
+
+$list[[29]]$visibility
+[1] 10000
+
+$list[[29]]$pop
+[1] 0
+
+$list[[29]]$sys
+$list[[29]]$sys$pod
+[1] "d"
+
+
+$list[[29]]$dt_txt
+[1] "2022-09-13 06:00:00"
+
+
+$list[[30]]
+$list[[30]]$dt
+[1] 1663059600
+
+$list[[30]]$main
+$list[[30]]$main$temp
+[1] 26.97
+
+$list[[30]]$main$feels_like
+[1] 28.11
+
+$list[[30]]$main$temp_min
+[1] 26.97
+
+$list[[30]]$main$temp_max
+[1] 26.97
+
+$list[[30]]$main$pressure
+[1] 1016
+
+$list[[30]]$main$sea_level
+[1] 1016
+
+$list[[30]]$main$grnd_level
+[1] 1010
+
+$list[[30]]$main$humidity
+[1] 61
+
+$list[[30]]$main$temp_kf
+[1] 0
+
+
+$list[[30]]$weather
+$list[[30]]$weather[[1]]
+$list[[30]]$weather[[1]]$id
+[1] 804
+
+$list[[30]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[30]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[30]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[30]]$clouds
+$list[[30]]$clouds$all
+[1] 100
+
+
+$list[[30]]$wind
+$list[[30]]$wind$speed
+[1] 1.25
+
+$list[[30]]$wind$deg
+[1] 142
+
+$list[[30]]$wind$gust
+[1] 1.94
+
+
+$list[[30]]$visibility
+[1] 10000
+
+$list[[30]]$pop
+[1] 0.04
+
+$list[[30]]$sys
+$list[[30]]$sys$pod
+[1] "d"
+
+
+$list[[30]]$dt_txt
+[1] "2022-09-13 09:00:00"
+
+
+$list[[31]]
+$list[[31]]$dt
+[1] 1663070400
+
+$list[[31]]$main
+$list[[31]]$main$temp
+[1] 25.07
+
+$list[[31]]$main$feels_like
+[1] 25.43
+
+$list[[31]]$main$temp_min
+[1] 25.07
+
+$list[[31]]$main$temp_max
+[1] 25.07
+
+$list[[31]]$main$pressure
+[1] 1018
+
+$list[[31]]$main$sea_level
+[1] 1018
+
+$list[[31]]$main$grnd_level
+[1] 1011
+
+$list[[31]]$main$humidity
+[1] 69
+
+$list[[31]]$main$temp_kf
+[1] 0
+
+
+$list[[31]]$weather
+$list[[31]]$weather[[1]]
+$list[[31]]$weather[[1]]$id
+[1] 804
+
+$list[[31]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[31]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[31]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[31]]$clouds
+$list[[31]]$clouds$all
+[1] 100
+
+
+$list[[31]]$wind
+$list[[31]]$wind$speed
+[1] 0.27
+
+$list[[31]]$wind$deg
+[1] 96
+
+$list[[31]]$wind$gust
+[1] 0.67
+
+
+$list[[31]]$visibility
+[1] 10000
+
+$list[[31]]$pop
+[1] 0.04
+
+$list[[31]]$sys
+$list[[31]]$sys$pod
+[1] "n"
+
+
+$list[[31]]$dt_txt
+[1] "2022-09-13 12:00:00"
+
+
+$list[[32]]
+$list[[32]]$dt
+[1] 1663081200
+
+$list[[32]]$main
+$list[[32]]$main$temp
+[1] 24.03
+
+$list[[32]]$main$feels_like
+[1] 24.45
+
+$list[[32]]$main$temp_min
+[1] 24.03
+
+$list[[32]]$main$temp_max
+[1] 24.03
+
+$list[[32]]$main$pressure
+[1] 1018
+
+$list[[32]]$main$sea_level
+[1] 1018
+
+$list[[32]]$main$grnd_level
+[1] 1011
+
+$list[[32]]$main$humidity
+[1] 75
+
+$list[[32]]$main$temp_kf
+[1] 0
+
+
+$list[[32]]$weather
+$list[[32]]$weather[[1]]
+$list[[32]]$weather[[1]]$id
+[1] 804
+
+$list[[32]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[32]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[32]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[32]]$clouds
+$list[[32]]$clouds$all
+[1] 100
+
+
+$list[[32]]$wind
+$list[[32]]$wind$speed
+[1] 1.23
+
+$list[[32]]$wind$deg
+[1] 57
+
+$list[[32]]$wind$gust
+[1] 2.06
+
+
+$list[[32]]$visibility
+[1] 10000
+
+$list[[32]]$pop
+[1] 0.15
+
+$list[[32]]$sys
+$list[[32]]$sys$pod
+[1] "n"
+
+
+$list[[32]]$dt_txt
+[1] "2022-09-13 15:00:00"
+
+
+$list[[33]]
+$list[[33]]$dt
+[1] 1663092000
+
+$list[[33]]$main
+$list[[33]]$main$temp
+[1] 23.42
+
+$list[[33]]$main$feels_like
+[1] 23.67
+
+$list[[33]]$main$temp_min
+[1] 23.42
+
+$list[[33]]$main$temp_max
+[1] 23.42
+
+$list[[33]]$main$pressure
+[1] 1017
+
+$list[[33]]$main$sea_level
+[1] 1017
+
+$list[[33]]$main$grnd_level
+[1] 1011
+
+$list[[33]]$main$humidity
+[1] 71
+
+$list[[33]]$main$temp_kf
+[1] 0
+
+
+$list[[33]]$weather
+$list[[33]]$weather[[1]]
+$list[[33]]$weather[[1]]$id
+[1] 804
+
+$list[[33]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[33]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[33]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[33]]$clouds
+$list[[33]]$clouds$all
+[1] 100
+
+
+$list[[33]]$wind
+$list[[33]]$wind$speed
+[1] 1.63
+
+$list[[33]]$wind$deg
+[1] 64
+
+$list[[33]]$wind$gust
+[1] 4.86
+
+
+$list[[33]]$visibility
+[1] 10000
+
+$list[[33]]$pop
+[1] 0.19
+
+$list[[33]]$sys
+$list[[33]]$sys$pod
+[1] "n"
+
+
+$list[[33]]$dt_txt
+[1] "2022-09-13 18:00:00"
+
+
+$list[[34]]
+$list[[34]]$dt
+[1] 1663102800
+
+$list[[34]]$main
+$list[[34]]$main$temp
+[1] 22.23
+
+$list[[34]]$main$feels_like
+[1] 22.44
+
+$list[[34]]$main$temp_min
+[1] 22.23
+
+$list[[34]]$main$temp_max
+[1] 22.23
+
+$list[[34]]$main$pressure
+[1] 1018
+
+$list[[34]]$main$sea_level
+[1] 1018
+
+$list[[34]]$main$grnd_level
+[1] 1011
+
+$list[[34]]$main$humidity
+[1] 74
+
+$list[[34]]$main$temp_kf
+[1] 0
+
+
+$list[[34]]$weather
+$list[[34]]$weather[[1]]
+$list[[34]]$weather[[1]]$id
+[1] 500
+
+$list[[34]]$weather[[1]]$main
+[1] "Rain"
+
+$list[[34]]$weather[[1]]$description
+[1] "light rain"
+
+$list[[34]]$weather[[1]]$icon
+[1] "10n"
+
+
+
+$list[[34]]$clouds
+$list[[34]]$clouds$all
+[1] 100
+
+
+$list[[34]]$wind
+$list[[34]]$wind$speed
+[1] 3.04
+
+$list[[34]]$wind$deg
+[1] 35
+
+$list[[34]]$wind$gust
+[1] 8.06
+
+
+$list[[34]]$visibility
+[1] 10000
+
+$list[[34]]$pop
+[1] 0.29
+
+$list[[34]]$rain
+$list[[34]]$rain$`3h`
+[1] 0.2
+
+
+$list[[34]]$sys
+$list[[34]]$sys$pod
+[1] "n"
+
+
+$list[[34]]$dt_txt
+[1] "2022-09-13 21:00:00"
+
+
+$list[[35]]
+$list[[35]]$dt
+[1] 1663113600
+
+$list[[35]]$main
+$list[[35]]$main$temp
+[1] 21.7
+
+$list[[35]]$main$feels_like
+[1] 21.81
+
+$list[[35]]$main$temp_min
+[1] 21.7
+
+$list[[35]]$main$temp_max
+[1] 21.7
+
+$list[[35]]$main$pressure
+[1] 1018
+
+$list[[35]]$main$sea_level
+[1] 1018
+
+$list[[35]]$main$grnd_level
+[1] 1012
+
+$list[[35]]$main$humidity
+[1] 72
+
+$list[[35]]$main$temp_kf
+[1] 0
+
+
+$list[[35]]$weather
+$list[[35]]$weather[[1]]
+$list[[35]]$weather[[1]]$id
+[1] 500
+
+$list[[35]]$weather[[1]]$main
+[1] "Rain"
+
+$list[[35]]$weather[[1]]$description
+[1] "light rain"
+
+$list[[35]]$weather[[1]]$icon
+[1] "10d"
+
+
+
+$list[[35]]$clouds
+$list[[35]]$clouds$all
+[1] 100
+
+
+$list[[35]]$wind
+$list[[35]]$wind$speed
+[1] 3.83
+
+$list[[35]]$wind$deg
+[1] 53
+
+$list[[35]]$wind$gust
+[1] 10.29
+
+
+$list[[35]]$visibility
+[1] 10000
+
+$list[[35]]$pop
+[1] 0.39
+
+$list[[35]]$rain
+$list[[35]]$rain$`3h`
+[1] 0.16
+
+
+$list[[35]]$sys
+$list[[35]]$sys$pod
+[1] "d"
+
+
+$list[[35]]$dt_txt
+[1] "2022-09-14 00:00:00"
+
+
+$list[[36]]
+$list[[36]]$dt
+[1] 1663124400
+
+$list[[36]]$main
+$list[[36]]$main$temp
+[1] 22.26
+
+$list[[36]]$main$feels_like
+[1] 22.32
+
+$list[[36]]$main$temp_min
+[1] 22.26
+
+$list[[36]]$main$temp_max
+[1] 22.26
+
+$list[[36]]$main$pressure
+[1] 1017
+
+$list[[36]]$main$sea_level
+[1] 1017
+
+$list[[36]]$main$grnd_level
+[1] 1011
+
+$list[[36]]$main$humidity
+[1] 68
+
+$list[[36]]$main$temp_kf
+[1] 0
+
+
+$list[[36]]$weather
+$list[[36]]$weather[[1]]
+$list[[36]]$weather[[1]]$id
+[1] 804
+
+$list[[36]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[36]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[36]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[36]]$clouds
+$list[[36]]$clouds$all
+[1] 100
+
+
+$list[[36]]$wind
+$list[[36]]$wind$speed
+[1] 3.33
+
+$list[[36]]$wind$deg
+[1] 51
+
+$list[[36]]$wind$gust
+[1] 8.42
+
+
+$list[[36]]$visibility
+[1] 10000
+
+$list[[36]]$pop
+[1] 0.01
+
+$list[[36]]$sys
+$list[[36]]$sys$pod
+[1] "d"
+
+
+$list[[36]]$dt_txt
+[1] "2022-09-14 03:00:00"
+
+
+$list[[37]]
+$list[[37]]$dt
+[1] 1663135200
+
+$list[[37]]$main
+$list[[37]]$main$temp
+[1] 23.36
+
+$list[[37]]$main$feels_like
+[1] 23.29
+
+$list[[37]]$main$temp_min
+[1] 23.36
+
+$list[[37]]$main$temp_max
+[1] 23.36
+
+$list[[37]]$main$pressure
+[1] 1016
+
+$list[[37]]$main$sea_level
+[1] 1016
+
+$list[[37]]$main$grnd_level
+[1] 1009
+
+$list[[37]]$main$humidity
+[1] 59
+
+$list[[37]]$main$temp_kf
+[1] 0
+
+
+$list[[37]]$weather
+$list[[37]]$weather[[1]]
+$list[[37]]$weather[[1]]$id
+[1] 804
+
+$list[[37]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[37]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[37]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[37]]$clouds
+$list[[37]]$clouds$all
+[1] 100
+
+
+$list[[37]]$wind
+$list[[37]]$wind$speed
+[1] 3.67
+
+$list[[37]]$wind$deg
+[1] 52
+
+$list[[37]]$wind$gust
+[1] 7.89
+
+
+$list[[37]]$visibility
+[1] 10000
+
+$list[[37]]$pop
+[1] 0
+
+$list[[37]]$sys
+$list[[37]]$sys$pod
+[1] "d"
+
+
+$list[[37]]$dt_txt
+[1] "2022-09-14 06:00:00"
+
+
+$list[[38]]
+$list[[38]]$dt
+[1] 1663146000
+
+$list[[38]]$main
+$list[[38]]$main$temp
+[1] 23.24
+
+$list[[38]]$main$feels_like
+[1] 23
+
+$list[[38]]$main$temp_min
+[1] 23.24
+
+$list[[38]]$main$temp_max
+[1] 23.24
+
+$list[[38]]$main$pressure
+[1] 1016
+
+$list[[38]]$main$sea_level
+[1] 1016
+
+$list[[38]]$main$grnd_level
+[1] 1009
+
+$list[[38]]$main$humidity
+[1] 53
+
+$list[[38]]$main$temp_kf
+[1] 0
+
+
+$list[[38]]$weather
+$list[[38]]$weather[[1]]
+$list[[38]]$weather[[1]]$id
+[1] 804
+
+$list[[38]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[38]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[38]]$weather[[1]]$icon
+[1] "04d"
+
+
+
+$list[[38]]$clouds
+$list[[38]]$clouds$all
+[1] 100
+
+
+$list[[38]]$wind
+$list[[38]]$wind$speed
+[1] 3.39
+
+$list[[38]]$wind$deg
+[1] 56
+
+$list[[38]]$wind$gust
+[1] 8.58
+
+
+$list[[38]]$visibility
+[1] 10000
+
+$list[[38]]$pop
+[1] 0
+
+$list[[38]]$sys
+$list[[38]]$sys$pod
+[1] "d"
+
+
+$list[[38]]$dt_txt
+[1] "2022-09-14 09:00:00"
+
+
+$list[[39]]
+$list[[39]]$dt
+[1] 1663156800
+
+$list[[39]]$main
+$list[[39]]$main$temp
+[1] 21.07
+
+$list[[39]]$main$feels_like
+[1] 20.64
+
+$list[[39]]$main$temp_min
+[1] 21.07
+
+$list[[39]]$main$temp_max
+[1] 21.07
+
+$list[[39]]$main$pressure
+[1] 1016
+
+$list[[39]]$main$sea_level
+[1] 1016
+
+$list[[39]]$main$grnd_level
+[1] 1010
+
+$list[[39]]$main$humidity
+[1] 54
+
+$list[[39]]$main$temp_kf
+[1] 0
+
+
+$list[[39]]$weather
+$list[[39]]$weather[[1]]
+$list[[39]]$weather[[1]]$id
+[1] 804
+
+$list[[39]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[39]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[39]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[39]]$clouds
+$list[[39]]$clouds$all
+[1] 99
+
+
+$list[[39]]$wind
+$list[[39]]$wind$speed
+[1] 2.57
+
+$list[[39]]$wind$deg
+[1] 67
+
+$list[[39]]$wind$gust
+[1] 6.97
+
+
+$list[[39]]$visibility
+[1] 10000
+
+$list[[39]]$pop
+[1] 0
+
+$list[[39]]$sys
+$list[[39]]$sys$pod
+[1] "n"
+
+
+$list[[39]]$dt_txt
+[1] "2022-09-14 12:00:00"
+
+
+$list[[40]]
+$list[[40]]$dt
+[1] 1663167600
+
+$list[[40]]$main
+$list[[40]]$main$temp
+[1] 19.87
+
+$list[[40]]$main$feels_like
+[1] 19.51
+
+$list[[40]]$main$temp_min
+[1] 19.87
+
+$list[[40]]$main$temp_max
+[1] 19.87
+
+$list[[40]]$main$pressure
+[1] 1015
+
+$list[[40]]$main$sea_level
+[1] 1015
+
+$list[[40]]$main$grnd_level
+[1] 1009
+
+$list[[40]]$main$humidity
+[1] 61
+
+$list[[40]]$main$temp_kf
+[1] 0
+
+
+$list[[40]]$weather
+$list[[40]]$weather[[1]]
+$list[[40]]$weather[[1]]$id
+[1] 804
+
+$list[[40]]$weather[[1]]$main
+[1] "Clouds"
+
+$list[[40]]$weather[[1]]$description
+[1] "overcast clouds"
+
+$list[[40]]$weather[[1]]$icon
+[1] "04n"
+
+
+
+$list[[40]]$clouds
+$list[[40]]$clouds$all
+[1] 99
+
+
+$list[[40]]$wind
+$list[[40]]$wind$speed
+[1] 2.19
+
+$list[[40]]$wind$deg
+[1] 71
+
+$list[[40]]$wind$gust
+[1] 4.8
+
+
+$list[[40]]$visibility
+[1] 10000
+
+$list[[40]]$pop
+[1] 0
+
+$list[[40]]$sys
+$list[[40]]$sys$pod
+[1] "n"
+
+
+$list[[40]]$dt_txt
+[1] "2022-09-14 15:00:00"
+
+
+
+$city
+$city$id
+[1] 1835848
+
+$city$name
+[1] "Seoul"
+
+$city$coord
+$city$coord$lat
+[1] 37.5683
+
+$city$coord$lon
+[1] 126.9778
+
+
+$city$country
+[1] "KR"
+
+$city$population
+[1] 10349312
+
+$city$timezone
+[1] 32400
+
+$city$sunrise
+[1] 1662757770
+
+$city$sunset
+[1] 1662803363
+
+
+Error in data.frame(city = city, weather = weather, visibility = visibility, : arguments imply differing number of rows: 5, 1, 0
+Traceback:
+
+1. get_weather_forecaset_by_cities(cities)
+2. data.frame(city = city, weather = weather, visibility = visibility, 
+ .     temp = temp, temp_min = temp_min, temp_max = temp_max, pressure = pressure, 
+ .     humidity = humidity, wind_speed = wind_speed, wind_deg = wind_deg, 
+ .     forecast_datetime = forecast_datetime, season = season)   # at line 45-56 of file <text>
+3. stop(gettextf("arguments imply differing number of rows: %s", 
+ .     paste(unique(nrows), collapse = ", ")), domain = NA)
+
