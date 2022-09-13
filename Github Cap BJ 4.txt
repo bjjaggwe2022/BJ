@@ -1,0 +1,124 @@
+
+
+# Create some empty vectors to hold data temporarily
+
+# City name column
+city <- c()
+# Weather column, rainy or cloudy, etc
+weather <- c()
+# Sky visibility column
+visibility <- c()
+# Current temperature column
+temp <- c()
+# Max temperature column
+temp_min <- c()
+# Min temperature column
+temp_max <- c()
+# Pressure column
+pressure <- c()
+# Humidity column
+humidity <- c()
+# Wind speed column
+wind_speed <- c()
+# Wind direction column
+wind_deg <- c()
+# Forecast timestamp
+forecast_datetime <- c()
+# Season column
+# Note that for season, you can hard code a season value from levels Spring, Summer, Autumn, and Winter based on your current month.
+season <- c()
+= = 
+
+# Get forecast data for a given city list
+get_weather_forecaset_by_cities <- function(city_names){
+    df <- data.frame()
+    for (city_name in city_names){
+        # Forecast API URL
+        forecast_url <- 'https://api.openweathermap.org/data/2.5/forecast?'
+        # Create query parameters
+        forecast_query <- list(q = city_name, appid = "f7dd8081e49fb94d12be4ab2fb739e74", units="metric")
+        # Make HTTP GET call for the given city
+        response <- GET(forecast_url, query=forecast_query)
+        
+        # Note that the 5-day forecast JSON result is a list of lists. You can print the reponse to check the results
+        #results <- json_list$list
+        json_list <- content(response, as="parsed")
+        results<-json_list$list  
+       list(results) 
+       
+      # Loop the json result
+        for(result in results) {
+            city <- c(city, city_name)
+         }  
+        
+           
+        # Add the R Lists into a data frame
+        # assign the values
+        
+        city <- c(city, result$city_name)
+       weather <- c(weather, result$weather[[1]]$main)
+        visibility <- c(visibility, result$visibility)
+        temp <- c(temp, result$main$temp)
+        # Get min temperature 
+        temp_min <- c(temp_min, result$main$temp_min)
+        # Get max temperature 
+        temp_max <- c(temp_max, result$main$temp_max)
+        # Get pressure
+        pressure <- c(pressure, result$main$pressure)
+        # Get humidity
+        humidity <- c(humidity, result$main$humidity)
+        # Get wind speed
+        wind_speed <- c(wind_speed, result$wind$speed)
+        # Get wind direction
+        wind_deg <- c(wind_deg, result$wind$deg)
+        forecast_datetime <- c(forecast_datetime, result$dt_txt)
+         # Get season     
+        library(zoo)
+                 months <- as.numeric(format(as.Date(forecast_datetime), '%m'))
+            index <- setNames( rep(c('winter', 'spring', 'summer',
+                   'fall'),each=3), c(12,1:11))
+            season <- unname(index[as.character(months)])
+ 
+  
+    # Combine all vectors as columns of a data frame   
+        weather_data_frame <- data.frame(city=city_name,
+                                 weather=weather, 
+                                 visibility=visibility,
+                                 temp=temp, 
+                                 temp_min=temp_min, 
+                                 temp_max=temp_max, 
+                                 pressure=pressure, 
+                                 humidity=humidity, 
+                                 wind_speed=wind_speed, 
+                                 wind_deg=wind_deg,
+                                forecast_datetime=forecast_datetime,
+                                season=season)
+ }
+    # Return a data frame
+  print(weather_data_frame)  
+    
+}
+= = 
+cities <- c("Seoul", "Washington, D.C.", "Paris", "Suzhou")
+cities_weather_df <- get_weather_forecaset_by_cities(cities)
+
+cities_weather_df
+= =
+Results
+
+   city weather visibility  temp temp_min temp_max pressure humidity
+1 Suzhou   Clear      10000 21.48    21.48    21.48     1008       81
+2 Suzhou    Rain      10000 11.72    11.72    11.72     1009       61
+3 Suzhou  Clouds      10000 18.66    18.66    18.66     1019       38
+4 Suzhou  Clouds      10000 22.52    22.52    22.52     1006       88
+  wind_speed wind_deg   forecast_datetime season
+1       1.60       38 2022-09-18 15:00:00   fall
+2       2.38      334 2022-09-18 15:00:00   fall
+3       6.13      336 2022-09-18 15:00:00   fall
+4       5.04        3 2022-09-18 15:00:00   fall
+
+city	weather	visibility	temp	temp_min	temp_max	pressure	humidity	wind_speed	wind_deg	forecast_datetime	season
+Suzhou	Clear	10000	21.48	21.48	21.48	1008	81	1.60	38	2022-09-18 15:00:00	fall
+Suzhou	Rain	10000	11.72	11.72	11.72	1009	61	2.38	334	2022-09-18 15:00:00	fall
+Suzhou	Clouds	10000	18.66	18.66	18.66	1019	38	6.13	336	2022-09-18 15:00:00	fall
+Suzhou	Clouds	10000	22.52	22.52	22.52	1006	88	5.04	3	2022-09-18 15:00:00	fall
