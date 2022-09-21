@@ -1,0 +1,28 @@
+# Attempt to covert 4 colums to indicator/dummy varaibles
+bike_sharing_new_df2 %>%
+  mutate(dummy = 1) %>% # column with single value
+  spread(
+    key = SEASONS, HOLIDAY,FUNCTIONING_DAY, HOUR, # column to spread
+    value = dummy,
+    fill = 0) %>%
+  slice(1:5)
+= = 
+Error
+
+Error in split_labels(col, col_id, drop = drop): object 'FUNCTIONING_DAY' not found
+Traceback:
+
+1. bike_sharing_new_df2 %>% mutate(dummy = 1) %>% spread(SEASONS, 
+ .     HOLIDAY, FUNCTIONING_DAY, HOUR, value = dummy, fill = 0) %>% 
+ .     slice(1:5)
+2. withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+3. eval(quote(`_fseq`(`_lhs`)), env, env)
+4. eval(quote(`_fseq`(`_lhs`)), env, env)
+5. `_fseq`(`_lhs`)
+6. freduce(value, `_function_list`)
+7. function_list[[i]](value)
+8. spread(., SEASONS, HOLIDAY, FUNCTIONING_DAY, HOUR, value = dummy, 
+ .     fill = 0)
+9. spread.data.frame(., SEASONS, HOLIDAY, FUNCTIONING_DAY, HOUR, 
+ .     value = dummy, fill = 0)
+10. split_labels(col, col_id, drop = drop)
